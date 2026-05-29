@@ -1,184 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Certificate System</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
-
+<title>Certificate Generator</title>
 <style>
-body {
-    margin: 0;
-    font-family: Montserrat;
-    background: #f2f2f2;
+body{
+  font-family:Arial,sans-serif;
+  max-width:700px;
+  margin:40px auto;
+  padding:20px;
 }
-
-/* ===== ADMIN PANEL ===== */
-.form-container {
-    width: 400px;
-    background: #fff;
-    padding: 20px;
-    margin: 20px auto;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+input{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
 }
-
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-}
-
-/* ===== BUTTON ===== */
-button {
-    width: 100%;
-    padding: 12px;
-    background: #1a2530;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-/* ===== CERTIFICATE ===== */
-#certificate {
-    width: 297mm;
-    height: 210mm;
-    background: white;
-    margin: 20px auto;
-    padding: 25mm;
-    position: relative;
-    display: none;
-}
-
-/* borders */
-.outer {
-    position:absolute;
-    top:20px;left:20px;right:20px;bottom:20px;
-    border:6px solid #111;
-}
-.inner {
-    position:absolute;
-    top:32px;left:32px;right:32px;bottom:32px;
-    border:2px solid #C5A059;
-}
-
-/* text */
-.center {
-    text-align:center;
-    position:relative;
-    z-index:2;
-}
-
-.name {
-    font-size:40px;
-    border-bottom:3px solid #C5A059;
-    display:inline-block;
-}
-
-/* footer */
-.footer {
-    position:absolute;
-    bottom:40px;
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    padding:0 50px;
-}
-
-/* signature */
-.signature img {
-    height:60px;
-}
-
-/* seal */
-.seal img {
-    height:60px;
-}
-
-/* PRINT FIX */
-@page {
-    size: A4 landscape;
-    margin: 0;
-}
-
-@media print {
-    body * {
-        visibility: hidden;
-    }
-
-    #certificate, #certificate * {
-        visibility: visible;
-    }
-
-    #certificate {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
+button{
+  padding:12px 20px;
+  width:100%;
+  cursor:pointer;
 }
 </style>
 </head>
-
 <body>
 
-<!-- ===== FORM ===== -->
-<div class="form-container">
-<h2>Admin Panel</h2>
+<h2>Certificate Generator</h2>
 
-<input id="name" placeholder="Student Name">
+<input id="institute" placeholder="Institute Name">
+<input id="student" placeholder="Student Name">
 <input id="course" placeholder="Course">
-<input id="certno" placeholder="Certificate No">
+<input id="certno" placeholder="Certificate Number">
+<input id="rollno" placeholder="Roll Number">
 <input id="session" placeholder="Session">
+<input id="issue" placeholder="Issue Date">
 
 <button onclick="generate()">Generate Certificate</button>
-<button onclick="window.print()">Print / Save PDF</button>
-</div>
-
-<!-- ===== CERTIFICATE ===== -->
-<div id="certificate">
-
-<div class="outer"></div>
-<div class="inner"></div>
-
-<div class="center">
-    <h1 id="c_name" class="name"></h1>
-    <h3 id="c_course"></h3>
-    <p>Certificate No: <span id="c_no"></span></p>
-    <p>Session: <span id="c_session"></span></p>
-</div>
-
-<div class="footer">
-
-    <div class="seal">
-        <img src="seal.png" alt="seal">
-    </div>
-
-    <div class="signature">
-        <img src="signature.png" alt="signature">
-        <p>Principal</p>
-    </div>
-
-</div>
-
-</div>
 
 <script>
 function generate(){
 
-    document.getElementById("certificate").style.display = "block";
+  const url =
+    "certificate.html?" +
+    "institute=" + encodeURIComponent(document.getElementById("institute").value) +
+    "&student=" + encodeURIComponent(document.getElementById("student").value) +
+    "&course=" + encodeURIComponent(document.getElementById("course").value) +
+    "&certno=" + encodeURIComponent(document.getElementById("certno").value) +
+    "&rollno=" + encodeURIComponent(document.getElementById("rollno").value) +
+    "&session=" + encodeURIComponent(document.getElementById("session").value) +
+    "&issue=" + encodeURIComponent(document.getElementById("issue").value);
 
-    document.getElementById("c_name").innerText =
-        document.getElementById("name").value;
-
-    document.getElementById("c_course").innerText =
-        document.getElementById("course").value;
-
-    document.getElementById("c_no").innerText =
-        document.getElementById("certno").value;
-
-    document.getElementById("c_session").innerText =
-        document.getElementById("session").value;
+  window.location.href = url;
 }
 </script>
 

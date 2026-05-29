@@ -1,441 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Certificate</title>
+<meta charset="UTF-8">
+<title>Certificate</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
 
-    <style>
-        :root {
-            --bg-color: #fcfbfa;
-            --primary-color: #1a2530;
-            --accent-gold: #C5A059;
-            --text-muted: #5a6578;
-            --border-dark: #111b24;
-        }
+@page{
+  size:A4 landscape;
+  margin:0;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+body{
+  margin:0;
+  background:#eee;
+  font-family:Arial,sans-serif;
+}
 
-        body {
-            background-color: #e0e0e0;
-            font-family: 'Montserrat', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+.certificate{
+  width:297mm;
+  height:210mm;
+  background:white;
+  margin:auto;
+  position:relative;
+  box-sizing:border-box;
+  padding:40px;
+}
 
-        .certificate-container {
-            width: 297mm;
-            height: 210mm;
-            background-color: var(--bg-color);
-            position: relative;
-            padding: 25mm;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            color: var(--primary-color);
+.border{
+  position:absolute;
+  top:20px;
+  left:20px;
+  right:20px;
+  bottom:20px;
+  border:5px solid #111;
+}
 
-            background-image:
-                radial-gradient(rgba(0,0,0,0.015) 1px, transparent 1px);
-            background-size: 4px 4px;
-        }
+.inner{
+  position:absolute;
+  top:35px;
+  left:35px;
+  right:35px;
+  bottom:35px;
+  border:2px solid gold;
+}
 
-        .outer-border {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 6px solid var(--border-dark);
-        }
+.content{
+  text-align:center;
+  margin-top:60px;
+}
 
-        .inner-border {
-            position: absolute;
-            top: 32px;
-            left: 32px;
-            right: 32px;
-            bottom: 32px;
-            border: 2px solid var(--accent-gold);
-        }
+.student{
+  font-size:42px;
+  margin:20px 0;
+  border-bottom:2px solid gold;
+  display:inline-block;
+  padding-bottom:10px;
+}
 
-        .corner-accent {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border: 3px solid var(--accent-gold);
-            z-index: 11;
-        }
+.footer{
+  position:absolute;
+  bottom:40px;
+  left:50px;
+  right:50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+}
 
-        .top-left {
-            top: 40px;
-            left: 40px;
-            border-right: none;
-            border-bottom: none;
-        }
+.signature img{
+  height:60px;
+}
 
-        .top-right {
-            top: 40px;
-            right: 40px;
-            border-left: none;
-            border-bottom: none;
-        }
+.seal img{
+  height:70px;
+}
 
-        .bottom-left {
-            bottom: 40px;
-            left: 40px;
-            border-right: none;
-            border-top: none;
-        }
+.print-btn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  padding:10px 20px;
+}
 
-        .bottom-right {
-            bottom: 40px;
-            right: 40px;
-            border-left: none;
-            border-top: none;
-        }
-
-        .watermark-bg {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 500px;
-            height: 500px;
-            opacity: 0.03;
-            border-radius: 50%;
-            border: 20px double var(--primary-color);
-        }
-
-        .certificate-header {
-            display: flex;
-            justify-content: space-between;
-            z-index: 5;
-        }
-
-        .meta-data {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-        }
-
-        .meta-data span {
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-
-        .certificate-body {
-            text-align: center;
-            z-index: 5;
-            margin-top: -10mm;
-        }
-
-        .institute-name {
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .subtitle {
-            font-size: 12px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--accent-gold);
-            font-weight: 700;
-            margin-bottom: 35px;
-        }
-
-        .certify-text {
-            font-size: 16px;
-            font-style: italic;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        .student-name {
-            font-size: 42px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            display: inline-block;
-            padding-bottom: 8px;
-            border-bottom: 3px solid var(--accent-gold);
-            margin-bottom: 25px;
-            text-transform: capitalize;
-            max-width: 90%;
-            line-height: 1.2;
-        }
-
-        .completion-text {
-            font-size: 15px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        .diploma-title {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-
-        .session-text {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .certificate-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            z-index: 5;
-        }
-
-        .dates-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .date-item {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .date-item span {
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .verification-seal {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .seal-circle {
-            width: 78px;
-            height: 78px;
-            border: 2px dashed var(--accent-gold);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .seal-inner-text {
-            font-size: 8px;
-            text-align: center;
-            color: var(--accent-gold);
-            font-weight: 700;
-        }
-
-        .seal-label {
-            font-size: 9px;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .signature-area {
-            text-align: center;
-            width: 220px;
-        }
-
-        .signature-graphic {
-            font-family: 'Alex Brush', cursive;
-            font-size: 36px;
-            color: #2c3e50;
-            height: 45px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            transform: rotate(-2deg);
-        }
-
-        .signature-line {
-            border-top: 1.5px solid var(--primary-color);
-            margin-top: 5px;
-            padding-top: 8px;
-        }
-
-        .signature-title {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .print-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 14px 24px;
-            border: none;
-            background: #1a2530;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            z-index: 999;
-        }
-
-        @page {
-            size: A4 landscape;
-            margin: 0;
-        }
-
-        @media print {
-            body {
-                background: none;
-                padding: 0;
-            }
-
-            .print-btn {
-                display: none;
-            }
-
-            .certificate-container {
-                box-shadow: none;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-        }
-    </style>
+@media print{
+  .print-btn{
+    display:none;
+  }
+}
+</style>
 </head>
+
 <body>
 
-    <button class="print-btn" onclick="window.print()">
-        Download PDF
-    </button>
+<button class="print-btn" onclick="window.print()">
+Save PDF
+</button>
 
-    <div class="certificate-container">
+<div class="certificate">
 
-        <div class="outer-border"></div>
-        <div class="inner-border"></div>
+<div class="border"></div>
+<div class="inner"></div>
 
-        <div class="corner-accent top-left"></div>
-        <div class="corner-accent top-right"></div>
-        <div class="corner-accent bottom-left"></div>
-        <div class="corner-accent bottom-right"></div>
+<div class="content">
 
-        <div class="watermark-bg"></div>
+<h1 id="institute"></h1>
 
-        <div class="certificate-header">
-            <div class="meta-data">
-                Certificate No:
-                <span id="certificateNo"></span>
-            </div>
+<p>This certifies that</p>
 
-            <div class="meta-data">
-                Roll No:
-                <span id="rollNo"></span>
-            </div>
-        </div>
+<div class="student" id="student"></div>
 
-        <div class="certificate-body">
+<p>has successfully completed</p>
 
-            <h1 class="institute-name" id="instituteName"></h1>
+<h2 id="course"></h2>
 
-            <div class="subtitle">
-                Institution of Excellence
-            </div>
+<p>Session: <span id="session"></span></p>
 
-            <p class="certify-text">
-                This is to certify that
-            </p>
+<p>
+Certificate No:
+<span id="certno"></span>
+</p>
 
-            <div class="student-name" id="studentName"></div>
+<p>
+Roll No:
+<span id="rollno"></span>
+</p>
 
-            <p class="completion-text">
-                has successfully completed the prescribed course of study and satisfied all requirements for the award of
-            </p>
+<p>
+Issue Date:
+<span id="issue"></span>
+</p>
 
-            <h2 class="diploma-title">
-                Diploma in <span id="course"></span>
-            </h2>
+</div>
 
-            <div class="session-text">
-                Session:
-                <span id="session"></span>
-            </div>
-        </div>
+<div class="footer">
 
-        <div class="certificate-footer">
+<div class="seal">
+<img src="seal.png" alt="Seal">
+</div>
 
-            <div class="dates-group">
-                <div class="date-item">
-                    Date of Completion:
-                    <span id="completionDate"></span>
-                </div>
+<div class="signature">
+<img src="signature.png" alt="Signature">
+<br>
+Principal
+</div>
 
-                <div class="date-item">
-                    Date of Issue:
-                    <span id="issueDate"></span>
-                </div>
-            </div>
+</div>
 
-            <div class="verification-seal">
-                <div class="seal-circle">
-                    <div class="seal-inner-text">
-                        VERIFIED
-                    </div>
-                </div>
+</div>
 
-                <div class="seal-label">
-                    Authentic Certificate
-                </div>
-            </div>
+<script>
 
-            <div class="signature-area">
-                <div class="signature-graphic">
-                    Principal Signature
-                </div>
+const params =
+new URLSearchParams(window.location.search);
 
-                <div class="signature-line">
-                    <div class="signature-title" id="principalName"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+document.getElementById("institute").textContent =
+params.get("institute") || "";
 
-    <script>
+document.getElementById("student").textContent =
+params.get("student") || "";
 
-        const data = JSON.parse(
-            localStorage.getItem('certificateData')
-        );
+document.getElementById("course").textContent =
+params.get("course") || "";
 
-        if(data){
+document.getElementById("certno").textContent =
+params.get("certno") || "";
 
-            document.getElementById('instituteName').innerText = data.instituteName;
-            document.getElementById('studentName').innerText = data.studentName;
-            document.getElementById('rollNo').innerText = data.rollNo;
-            document.getElementById('certificateNo').innerText = data.certificateNo;
-            document.getElementById('course').innerText = data.course;
-            document.getElementById('session').innerText = data.session;
-            document.getElementById('completionDate').innerText = data.completionDate;
-            document.getElementById('issueDate').innerText = data.issueDate;
-            document.getElementById('principalName').innerText = data.principalName;
-        }
+document.getElementById("rollno").textContent =
+params.get("rollno") || "";
 
-    </script>
+document.getElementById("session").textContent =
+params.get("session") || "";
+
+document.getElementById("issue").textContent =
+params.get("issue") || "";
+
+</script>
 
 </body>
 </html>

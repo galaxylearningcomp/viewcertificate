@@ -1,6 +1,62 @@
 <!DOCTYPE html>
-<html><head><title>Admin Panel</title></head>
+<html>
+<head>
+<title>Certificate Admin</title>
+</head>
 <body>
-<h2>Certificate Admin Panel</h2>
-<p>Starter admin page for Firebase integration.</p>
-</body></html>
+
+<h2>Add Certificate</h2>
+
+<input id="certificateId" placeholder="Certificate ID"><br><br>
+<input id="studentName" placeholder="Student Name"><br><br>
+<input id="course" placeholder="Course"><br><br>
+<input id="issueDate" type="date"><br><br>
+
+<button onclick="saveCertificate()">Save</button>
+
+<p id="msg"></p>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+getFirestore,
+doc,
+setDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "XXXX",
+  appId: "XXXX"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.saveCertificate = async function() {
+
+const cert = {
+certificateId: document.getElementById("certificateId").value,
+studentName: document.getElementById("studentName").value,
+course: document.getElementById("course").value,
+issueDate: document.getElementById("issueDate").value
+};
+
+await setDoc(
+doc(db, "certificates", cert.certificateId),
+cert
+);
+
+document.getElementById("msg").innerHTML =
+"Certificate Saved Successfully";
+
+};
+
+</script>
+
+</body>
+</html>

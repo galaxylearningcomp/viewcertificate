@@ -1,6 +1,100 @@
 <!DOCTYPE html>
-<html><head><title>Advanced Certificate</title></head>
+<html>
+<head>
+<title>Certificate</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+padding:50px;
+}
+
+.certificate{
+border:10px solid navy;
+padding:40px;
+max-width:900px;
+margin:auto;
+}
+
+</style>
+
+</head>
 <body>
-<h1>Advanced Diploma Certificate Template</h1>
-<p>Replace with the full advanced template previously generated.</p>
-</body></html>
+
+<div class="certificate">
+
+<h1>CERTIFICATE</h1>
+
+<p>This is awarded to</p>
+
+<h2 id="name"></h2>
+
+<p>For successful completion of</p>
+
+<h3 id="course"></h3>
+
+<p id="date"></p>
+
+<p>Certificate ID:
+<strong id="cid"></strong></p>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+getFirestore,
+doc,
+getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "XXXX",
+  appId: "XXXX"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const params = new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+
+const snap = await getDoc(
+doc(db, "certificates", id)
+);
+
+if (!snap.exists()) {
+
+document.body.innerHTML =
+"<h1>Certificate Not Found</h1>";
+
+throw new Error();
+
+}
+
+const data = snap.data();
+
+document.getElementById("name").innerText =
+data.studentName;
+
+document.getElementById("course").innerText =
+data.course;
+
+document.getElementById("date").innerText =
+data.issueDate;
+
+document.getElementById("cid").innerText =
+data.certificateId;
+
+</script>
+
+</body>
+</html>

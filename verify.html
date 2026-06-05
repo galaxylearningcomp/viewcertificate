@@ -1,6 +1,25 @@
 <!DOCTYPE html>
-<html><head><title>Verify Certificate</title></head>
+<html>
+<head>
+<title>Verify Certificate</title>
+</head>
 <body>
-<h2>Certificate Verification</h2>
-<p>Connect this page to Firebase and QR codes.</p>
-</body></html>
+
+<h2>Verify Certificate</h2>
+
+<input id="certId" placeholder="Certificate ID">
+<button onclick="verify()">Verify</button>
+
+<script>
+function verify() {
+
+const id = document.getElementById("certId").value;
+
+window.location.href =
+`certificate.html?id=${id}`;
+
+}
+</script>
+
+</body>
+</html>
